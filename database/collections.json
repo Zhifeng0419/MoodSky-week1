@@ -1,0 +1,95 @@
+{
+  "status": "test-foundation-deployed-client-read-denial-verified",
+  "collections": [
+    {
+      "name": "accounts",
+      "owner": "Xiang Yu / Jiawei Fang",
+      "uniqueKeys": [["openid"]],
+      "notes": "Trusted identity mapping and active/disabled status; no student ID required."
+    },
+    {
+      "name": "journals",
+      "owner": "Xiang Yu / Xiang Hong",
+      "uniqueKeys": [["ownerId", "date"]],
+      "notes": "Private weather, tags, text, version, UTC timestamps, deletion state."
+    },
+    {
+      "name": "preferences",
+      "owner": "Xiang Yu / Jiawei Fang",
+      "uniqueKeys": [["ownerId"]],
+      "notes": "Private card preview and decoration preferences."
+    },
+    {
+      "name": "month_decorations",
+      "owner": "Xiang Yu / Xiang Hong",
+      "uniqueKeys": [["ownerId", "month"]],
+      "notes": "Private decoration references; never duplicate journal writing."
+    },
+    {
+      "name": "places",
+      "owner": "Xiang Yu / Junhan Huang",
+      "uniqueKeys": [],
+      "notes": "Verified campus, opening status, hours, accessibility and validity."
+    },
+    {
+      "name": "favorites",
+      "owner": "Xiang Yu / Junhan Huang",
+      "uniqueKeys": [["ownerId", "placeId"]],
+      "notes": "Private favorites."
+    },
+    {
+      "name": "place_corrections",
+      "owner": "Xiang Yu / Junhan Huang",
+      "uniqueKeys": [],
+      "notes": "Private submitter/operator review; no automatic publication."
+    },
+    {
+      "name": "support_resources",
+      "owner": "Xiang Yu / Junhan Huang",
+      "uniqueKeys": [],
+      "notes": "Verified resources with expiry; no fictional contact details."
+    },
+    {
+      "name": "task_templates",
+      "owner": "Xiang Yu / Junhan Huang",
+      "uniqueKeys": [],
+      "notes": "Reviewed static voluntary task templates."
+    },
+    {
+      "name": "task_history",
+      "owner": "Xiang Yu / Jiawei Fang",
+      "uniqueKeys": [],
+      "notes": "Private owner/template/date transitions and idempotency."
+    },
+    {
+      "name": "export_jobs",
+      "owner": "Xiang Yu; Jiawei Fang reviews account gate",
+      "uniqueKeys": [],
+      "notes": "Private export state, expiry and invalidation."
+    },
+    {
+      "name": "cleanup_jobs",
+      "owner": "Xiang Yu execution / Jiawei Fang account entry and progress",
+      "uniqueKeys": [],
+      "notes": "Restricted progress receipt and cleanup state."
+    },
+    {
+      "name": "request_receipts",
+      "owner": "Xiang Yu / Xiang Hong",
+      "uniqueKeys": [["ownerId", "action", "requestId"]],
+      "notes": "Bind retry to input digest; never retain journal writing here."
+    },
+    {
+      "name": "deletion_markers",
+      "owner": "Xiang Yu; domain owners provide deletion handling",
+      "uniqueKeys": [],
+      "notes": "No journal writing; replay before restored data becomes readable."
+    },
+    {
+      "name": "operator_roles",
+      "owner": "Xiang Yu schema / Junhan Huang roles / Qizhen Chen Web identity adapter",
+      "uniqueKeys": [["accountId"]],
+      "notes": "Server-managed operator roles; client cannot grant roles."
+    }
+  ]
+}

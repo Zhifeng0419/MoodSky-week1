@@ -1,0 +1,16 @@
+# Repository-wide approval owner. Member updates require @HX-Jan approval.
+# @HX-Jan is the sole admin and can bypass approval; a ruleset enforces quality for everyone.
+* @HX-Jan
+# Responsibility map: docs/team.md. Domain reviewers provide implementation feedback.
+/.github/ @HX-Jan
+/miniprogram/shared/ @HX-Jan
+/miniprogram/services/api.js @HX-Jan
+/miniprogram/app.json @HX-Jan
+/cloudfunctions/moodsky/router.js @HX-Jan
+/cloudfunctions/moodsky/index.js @HX-Jan
+/cloudfunctions/moodsky/package.json @HX-Jan
+/cloudfunctions/moodsky/package-lock.json @HX-Jan
+/database/ @HX-Jan
+/docs/api.md @HX-Jan
+/package.json @HX-Jan
+/package-lock.json @HX-Jan

@@ -1,0 +1,22 @@
+{
+  "pages": ["pages/today/index", "pages/campus/index", "pages/universe/index", "pages/me/index"],
+  "window": {
+    "navigationBarTitleText": "MoodSky",
+    "navigationBarBackgroundColor": "#F5F7FC",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F5F7FC"
+  },
+  "tabBar": {
+    "color": "#68758C",
+    "selectedColor": "#385BC7",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      { "pagePath": "pages/today/index", "text": "Today" },
+      { "pagePath": "pages/campus/index", "text": "Campus" },
+      { "pagePath": "pages/universe/index", "text": "Universe" },
+      { "pagePath": "pages/me/index", "text": "Me" }
+    ]
+  },
+  "usingComponents": { "empty-state": "/components/empty-state/index" },
+  "sitemapLocation": "sitemap.json"
+}

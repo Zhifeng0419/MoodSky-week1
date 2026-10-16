@@ -1,0 +1,4 @@
+{
+  "desc": "Private application pages are not indexed.",
+  "rules": [{ "action": "disallow", "page": "*" }]
+}

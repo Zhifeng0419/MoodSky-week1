@@ -1,0 +1,35 @@
+name: 功能任务
+description: 在开发前明确主责、模块、依赖与验收
+title: '[UW3-Fxx] '
+labels: [feature]
+body:
+  - type: input
+    id: requirement
+    attributes:
+      label: 需求编号
+      placeholder: UW3-F01
+    validations:
+      required: true
+  - type: input
+    id: owner
+    attributes:
+      label: 主责人与复核人
+    validations:
+      required: true
+  - type: input
+    id: scope
+    attributes:
+      label: 修改目录与依赖任务
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 输入、输出、错误和验收条件
+      description: 接口变动先与调用方确认；说明正常路径和关键边界。
+    validations:
+      required: true
+  - type: input
+    id: deadline
+    attributes:
+      label: 计划完成日期

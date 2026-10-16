@@ -1,0 +1,12 @@
+.empty {
+  padding: 28rpx 0;
+}
+.empty-title {
+  color: #22314d;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+}
+.empty-description {
+  color: #68758c;
+  line-height: 1.8;
+}

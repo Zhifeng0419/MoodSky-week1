@@ -1,0 +1,9 @@
+<view class="page">
+  <view class="eyebrow">ME</view>
+  <view class="title">由你掌握自己的记录</view>
+  <view class="card">
+    <empty-state title="个人设置准备中" description="隐私偏好、本人导出和账号注销将在开发与验证后开放。" />
+    <view class="body">卡片正文预览默认关闭。</view>
+  </view>
+  <view class="hint">MoodSky {{version}}</view>
+</view>

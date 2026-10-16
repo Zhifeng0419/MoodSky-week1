@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.pdf binary
+*.pptx binary
+# Imported evidence retains original bytes, including line endings.
+docs/test-reports/2026-10-15/artifacts/** -text

@@ -1,0 +1,9 @@
+/* Jiaqi Zhu owns shared design tokens. Pages reuse these values. */
+page {
+  --color-background: #f5f7fc;
+  --color-surface: #ffffff;
+  --color-text: #22314d;
+  --color-muted: #68758c;
+  --color-primary: #385bc7;
+  --radius-card: 24rpx;
+}

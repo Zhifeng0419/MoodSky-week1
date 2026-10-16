@@ -1,0 +1,76 @@
+const { APP_VERSION } = require('./shared/constants');
+const { ACTIONS, ERROR_CODES } = require('./shared/contracts');
+const { AppError, success, failure, notImplemented } = require('./shared/result');
+const {
+  REQUEST_ID_PATTERN,
+  validateRequest,
+  validateJournalInput,
+} = require('./shared/validation');
+const domains = {
+  journal: require('./domains/journal'),
+  review: require('./domains/review'),
+  campus: require('./domains/campus'),
+  tasks: require('./domains/tasks'),
+  account: require('./domains/account'),
+  admin: require('./domains/admin'),
+};
+// Implement these adapters against trusted cloud records before enabling private services.
+const defaultAdapters = {
+  resolveAccount: async () => notImplemented(),
+  resolveOperatorRoles: async () => notImplemented(),
+  resolveCleanupReceipt: async () => notImplemented(),
+};
+function createRouter(adapters = {}) {
+  const services = { ...defaultAdapters, ...adapters };
+  return async (request, trustedContext = {}) => {
+    const requestId =
+      request && typeof request.requestId === 'string' && REQUEST_ID_PATTERN.test(request.requestId)
+        ? request.requestId
+        : null;
+    try {
+      const definition = validateRequest(request);
+      let actor = null;
+      if (definition.access === 'private' || definition.access === 'operator') {
+        if (!trustedContext.OPENID) {
+          throw new AppError(ERROR_CODES.UNAUTHENTICATED, '请先登录。');
+        }
+        const account = await services.resolveAccount(trustedContext.OPENID);
+        if (!account || !account.id) {
+          throw new AppError(ERROR_CODES.UNAUTHENTICATED, '账号尚未就绪。');
+        }
+        if (account.status !== 'active') {
+          throw new AppError(ERROR_CODES.ACCOUNT_DISABLED, '账号已停用。');
+        }
+        actor = { accountId: account.id, roles: [] };
+        if (definition.access === 'operator') {
+          actor.roles = await services.resolveOperatorRoles(account.id);
+          if (!Array.isArray(actor.roles) || !actor.roles.includes('data_operator')) {
+            throw new AppError(ERROR_CODES.FORBIDDEN, '需要资料维护权限。');
+          }
+        }
+      } else if (definition.access === 'receipt') {
+        actor = await services.resolveCleanupReceipt(request.payload.receipt);
+        if (!actor || actor.permission !== 'cleanup_status') {
+          throw new AppError(ERROR_CODES.FORBIDDEN, '清理进度回执无效。');
+        }
+      }
+      let payload = request.payload;
+      if (request.action === 'journal.upsert') {
+        payload = validateJournalInput(payload);
+      }
+      if (request.action === 'system.health') {
+        return success(requestId, { app: 'MoodSky', version: APP_VERSION, stage: 'foundation' });
+      }
+      const handler = domains[definition.domain];
+      const data = await handler.handle({ action: request.action, payload, actor, requestId });
+      return success(requestId, data);
+    } catch (error) {
+      if (error instanceof AppError) {
+        return failure(requestId, error.code, error.message);
+      }
+      // Private payloads, identity and platform errors must never leak to responses/logs.
+      return failure(requestId, ERROR_CODES.INTERNAL_ERROR, '服务暂时不可用，请稍后重试。');
+    }
+  };
+}
+module.exports = { createRouter, ACTIONS };
