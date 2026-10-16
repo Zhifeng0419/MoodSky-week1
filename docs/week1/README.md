@@ -32,3 +32,13 @@ Today [第二版审查](xiang-hong/w1-today-date-navigation-review.md)、H03 [�
 - [W1XY03 导出设计](XiangYu/export-flow-design.md)：统一现有 account action 和 API 信封；按 H03 使删除记录关联的旧任务及未领取导出失效，领取时重新检查，执行器未实现。
 - [W1XY04 清理恢复](XiangYu/cleanup-recovery-design.md)：将删除标记和删除的原子边界、备份后删除账本及受限进度回执纳入设计；清理和恢复未执行。
 - [W1XY05 合成样本](XiangYu/synthetic-data-and-handover.md)：对齐标签码、偏好字段和固定日期窗口；本人查询、导出、清理及身份适配明确标为待实现，不自动导入或清理样本。
+
+## Zhifeng Dai
+
+回顾与天气宇宙前端的 W1 Z01—Z05 已在源码中实现为内存演示（`journalDemo` 且云关闭时启用，页面结构与接口字段对照 [H04](xiang-hong/w1-h04.md)）；真实业务仍为 NOT_IMPLEMENTED，演示数据不写入云端。配套 11 项合成夹具测试并入 `tests/review-demo.test.js`，完整项目 135 项测试通过。
+
+- [Z01 确认回顾信息结构](zhifeng-dai/w1-z01.md)：页面结构关系图、接口字段复核确认记录；正文默认不预览、无记录留白、本人详情展示三项核心规则。
+- [Z02 月历可点击演示](zhifeng-dai/w1-z02.md)：`pages/universe/index` 月历网格；跨月样例（2026-09 末—2026-10 初）与全空月份样例（2026-08）；空日期不留任何天气标识，不误识别为阴天。
+- [Z03 月份档案与卡片演示](zhifeng-dai/w1-z03.md)：月份列表 → 指定月份档案 → 卡片 → 本人详情的完整跳转路径；卡片默认内容不含正文（数据层即不返回 text）。
+- [Z04 分布与时间线样例](zhifeng-dai/w1-z04.md)：0/2/3 条固定夹具与 7/30/90 天窗口；分母为实际记录数、缺失日期留白、不足 3 条不输出趋势结论，机读样例见 [w1-z04-fixtures.json](zhifeng-dai/w1-z04-fixtures.json)。
+- [Z05 刷新与素材失败处理](zhifeng-dai/w1-z05.md)：保存/编辑/删除触发的月历与卡片刷新事件清单、装饰关闭/素材失败/重置的降级规则、月份入口定位指定记录；贴纸与背景素材制作安排排至第二周。
